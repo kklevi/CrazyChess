@@ -1,0 +1,11 @@
+<div class="chessboard">
+    <div *ngFor="let square of board; let i=index">
+
+        <div *ngIf="isWhite(i)" class = "black">
+            {{getPieceCode(i)}}
+        </div>
+        <div *ngIf="!isWhite(i)" class = "white">
+            {{getPieceCode(i)}}
+        </div>
+    </div>
+</div>
