@@ -7,17 +7,20 @@ import { OnInit } from "@angular/core";
 @Component({
     selector: 'chess',
     templateUrl: 'chess.component.html',
+    styleUrls: ['chess.css']
 })
 export class ChessComponent implements OnInit{
     constructor(private chessService: ChessService) {}
 
     board: Array<any>;
     possibleMovement: Array<number>;
+    selectedPos: number;
 
     ngOnInit(){
         console.log('hi');
         this.chessService.generatePieces();
         this.board = this.chessService.getBoard();
+        this.possibleMovement = new Array();
     }
     
     isWhite(i: number){
@@ -37,14 +40,19 @@ export class ChessComponent implements OnInit{
         if(!this.chessService.hasPieceAt(i)){
             return;
         }
-
+        this.selectedPos = i;
         this.possibleMovement = this.chessService.getPossibleMovements(i);
     }
 
     isPossibleMovement(i: number): boolean{
-        if(this.possibleMovement.indexOf(i)){
-
+        if(this.possibleMovement.indexOf(i) < 0){
+            return false;
         }
+        return true;
+    }
+
+    moveSelectedPieceTo(i: number): void{
+        
     }
 
 }

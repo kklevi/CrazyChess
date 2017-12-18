@@ -15,6 +15,7 @@ export class Board {
 
     generatePieces(): void{
         this.board[43] = new Pawn(this, Color.White);
+        this.board[36] = new Pawn(this, Color.Black);
     }
 
     getBoard(){
@@ -23,6 +24,11 @@ export class Board {
 
     getPos(piece: Piece): number{
         return this.board.indexOf(piece);
+    }
+
+    movePiece(from: number, to:number){
+        this.board[to] = this.board[from];
+        this.board[from] = 0;
     }
 
     hasPieceAt(pos: number): boolean{

@@ -27,7 +27,11 @@ export class ChessService {
     }
 
     getPossibleMovements(pos: number): Array<number>{
-        return this.board.getP
+        return this.board.getMovementAt(pos);
+    }
+
+    movePiece(from: number, to: number){
+        this.board.movePiece(from, to);
     }
     
 }
