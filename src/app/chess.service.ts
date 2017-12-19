@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Board } from "./Board";
+import { Board } from "./Game/Board";
+import { Color } from "./Game/color";
 
 
 @Injectable()
@@ -32,6 +33,10 @@ export class ChessService {
 
     movePiece(from: number, to: number){
         this.board.movePiece(from, to);
+    }
+
+    getPieceColor(pos: number): Color{
+        return this.board.getPiece(pos).color;
     }
     
 }

@@ -1,8 +1,9 @@
 import { Component, style } from "@angular/core";
 import { ChessService } from "./chess.service";
-import { Board } from "./Board";
-import { Piece } from "./Piece";
+import { Board } from "./Game/Board";
+import { Piece } from "./Game/Piece";
 import { OnInit } from "@angular/core";
+import { Color } from "./Game/color";
 
 @Component({
     selector: 'chess',
@@ -15,15 +16,17 @@ export class ChessComponent implements OnInit{
     board: Array<any>;
     possibleMovement: Array<number>;
     selectedPos: number;
+    turn: Color;
 
     ngOnInit(){
         console.log('hi');
         this.chessService.generatePieces();
         this.board = this.chessService.getBoard();
         this.possibleMovement = new Array();
+        this.turn = Color.White;
     }
     
-    isWhite(i: number){
+    isWhiteSquare(i: number){
         if((Math.floor(i/8) + i+1)%2 == 0) return true;
         return false;
     }
@@ -36,8 +39,8 @@ export class ChessComponent implements OnInit{
         return this.chessService.getPieceHtmlCode(i);
     }
 
-    setPossibleMovement(i: number): void{
-        if(!this.chessService.hasPieceAt(i)){
+    selectPiece(i: number): void{
+        if(!this.chessService.hasPieceAt(i) || this.chessService.getPieceColor(i) != this.turn){
             return;
         }
         this.selectedPos = i;
@@ -52,7 +55,9 @@ export class ChessComponent implements OnInit{
     }
 
     moveSelectedPieceTo(i: number): void{
-        
+        this.chessService.movePiece(this.selectedPos, i);
+        this.possibleMovement = new Array();
+        (this.turn == Color.White) ? this.turn = Color.Black : this.turn = Color.White;
     }
 
 }

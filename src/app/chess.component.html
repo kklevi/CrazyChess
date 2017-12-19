@@ -1,14 +1,14 @@
 <div class="chessboard">
     <div *ngFor="let square of board; let i=index">
     
-        <div (click)="setPossibleMovement(i)">
-            <div *ngIf="isPossibleMovement(i)" class = "green" (click)="movePieceAt(i)">
+        <div (click)="selectPiece(i)">
+            <div *ngIf="isPossibleMovement(i)" class = "green" (click)="moveSelectedPieceTo(i)">
                 {{getPieceCode(i)}}
             </div>
-            <div *ngIf="isWhite(i) && !isPossibleMovement(i)" class = "black">
+            <div *ngIf="isWhiteSquare(i) && !isPossibleMovement(i)" class = "black">
                 {{getPieceCode(i)}}
             </div>
-            <div *ngIf="!isWhite(i) && !isPossibleMovement(i)" class = "white">
+            <div *ngIf="!isWhiteSquare(i) && !isPossibleMovement(i)" class = "white">
                 {{getPieceCode(i)}}
             </div>
         </div>

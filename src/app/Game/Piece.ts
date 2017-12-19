@@ -4,6 +4,8 @@ import { Color } from "./color";
 export abstract class Piece {
     board: Board;
     color: Color;
+    htmlCode: String;
+    points: number;
     
     constructor(board: Board, color: Color){
         this.board = board;
@@ -11,5 +13,7 @@ export abstract class Piece {
     }
 
     abstract getMovement(): Array<number>;
-    abstract getHtmlCode(): String;
+    getHtmlCode(): String{
+        return this.htmlCode;
+    }
 }

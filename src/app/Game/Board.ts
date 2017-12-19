@@ -1,21 +1,25 @@
 import { Piece } from "./Piece";
 import { Pawn } from "./Pawn";
 import { Color } from "./color";
+import { PieceGenerator } from "./pieceGenerator";
 
 export class Board {
 
     private board: Array<any>;
+    private pieceGenerator: PieceGenerator;
 
     constructor() {
+        this.pieceGenerator = new PieceGenerator();
+
         this.board = new Array(64);
         for(let i = 0; i < 64; i++){
             this.board[i] = 0;
         }
+
     }
 
     generatePieces(): void{
-        this.board[43] = new Pawn(this, Color.White);
-        this.board[36] = new Pawn(this, Color.Black);
+        this.pieceGenerator.generatePieces(this);
     }
 
     getBoard(){
@@ -45,7 +49,7 @@ export class Board {
         if(this.hasPieceAt(pos)){
             return this.board[pos].getHtmlCode();
         }
-        return '0';
+        return '';
     }
 
     getMovementAt(pos: number): Array<number>{
@@ -61,4 +65,21 @@ export class Board {
         }
         return this.board[pos];
     }
+
+    getColorAt(pos: number): Color{
+        return this.board[pos].color;
+    }
+
+    get2dBoard(): Array<Array<any>>{
+        let board = Array<Array<any>>();
+
+        for(let i = 0; i < 8; i++){
+            for(let j = 0; j < 8; j++){
+                board[i][j] = this.board[i+j];
+            }
+        }
+
+        return board;
+    }
+
 }
