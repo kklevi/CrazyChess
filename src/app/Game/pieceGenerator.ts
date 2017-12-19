@@ -17,12 +17,11 @@ export class PieceGenerator{
         this.createPieces(whitePieces, 20, board, Color.White);
         this.createPieces(blackPieces, 20, board, Color.Black);
 
-        let whiteQueens = whitePieces.filter((p) => p.points == 9 && p.color == Color.White);
-        let blackQueens = blackPieces.filter((p) => p.points == 9);
+        let whiteQueens = whitePieces.filter((p) => p.points != 1 && p.color == Color.White);
+        let blackQueens = blackPieces.filter((p) => p.points != 1 && p.color == Color.Black);
 
 
-        this.placePawnsQueens(board, Color.White, whiteQueens, 0);
-        this.placePawnsQueens(board, Color.Black, blackQueens, 0);
+        
     }
 
     createPieces(Pieces: Array<Piece>, points: number, board: Board, color: Color){
@@ -72,7 +71,7 @@ export class PieceGenerator{
 
     
 
-    private placePawnsQueens(board: Board, color: Color, pieces: Array<Piece>, start: number): void{
+    private placePieces(board: Board, color: Color, pieces: Array<Piece>, start: number): void{
         const startingRow = (color == Color.White) ? 7-start : 0+start;
         const rowModifier = (color == Color.White) ? -1 : 1;
 
@@ -111,4 +110,3 @@ export class PieceGenerator{
         return 0;
     }
 }
-
