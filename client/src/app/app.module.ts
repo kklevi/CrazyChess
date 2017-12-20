@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AlertModule } from './alert.module';
 
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 import { ChessService } from './chess.service';
 import { AuthenticationService } from './_services/authentication.service';
@@ -34,7 +35,9 @@ import { LoginComponent } from './login/login.component';
   ],
   providers: [
     ChessService, 
-    AuthenticationService],
+    AuthenticationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
