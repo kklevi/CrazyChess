@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', index);
-app.use('/auth', auth);
+app.use('/api/auth', auth);
 app.use('/users', users);
 
 let socket = io => {

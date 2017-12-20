@@ -26,12 +26,14 @@ function findUserByUsername  ( username ) {
 
 
 function authenticate ( username, password ) {
+  let errMessage = 'Invalid username/password';
+
   return findUserByUsername(username)
-    .then(user => user || Promise.reject('Invalid username/password'))
+    .then(user => user || Promise.reject(errMessage))
     .then(user => new Promise((resolve, reject) => {
       user.comparePassword(password, (err, isMatch) => {
         if(!isMatch) {
-          reject('Invalid username/password');
+          reject(errMessage);
         } else {
           resolve({ message: 'OK', token: generateToken(user) });
         }
@@ -39,6 +41,8 @@ function authenticate ( username, password ) {
     }));
 };
 
-module.exports = { registerNewUser,
-                   findUserByUsername,
-                   authenticate };
+module.exports = {
+  registerNewUser,
+  findUserByUsername,
+  authenticate
+};

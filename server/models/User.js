@@ -32,7 +32,6 @@ userSchema.methods.comparePassword = function(password, cb) {
   });
 };
 
-
 userSchema.options.toJSON = {
   transform: function(doc, ret, options) {
     delete ret.password;
