@@ -6,10 +6,16 @@ import * as io from 'socket.io-client';
 export class GameService {
 
   private socket: io.Socket;
+  color: string;
 
   constructor() {
     console.log('Connect to socket');
     this.socket = io('http://localhost:3000');
+
+    this.socket.on('set-color', data => {
+      this.color = data;
+      console.log('Setting color', data);
+    });
   }
 
   sendMessage(msg: string) : void {

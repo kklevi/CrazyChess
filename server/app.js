@@ -39,8 +39,13 @@ app.use('/api/auth', auth);
 app.use('/users', users);
 
 let socket = io => {
+  let currentColor = 'white';
+
   io.on('connection', socket => {
     console.log('A user is connected');
+    
+    io.to(socket.id).emit('set-color', currentColor);
+    currentColor = currentColor === 'white' ? 'black' : 'white';
 
     socket.on('make-move', move => {
       console.log(`Move made: ${ move }`);
