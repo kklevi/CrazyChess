@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const dontenv = require('dotenv');
 const favicon = require('serve-favicon');
@@ -16,6 +17,8 @@ let users = require('./routes/users');
 let auth = require('./routes/auth');
 
 let app = express();
+
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
