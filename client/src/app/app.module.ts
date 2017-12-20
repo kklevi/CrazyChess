@@ -10,6 +10,7 @@ import { AlertModule } from './alert.module';
 
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
+import { GameService } from './_services/game.service';
 import { ChessService } from './chess.service';
 import { AuthenticationService } from './_services/authentication.service';
 
@@ -34,7 +35,8 @@ import { LoginComponent } from './login/login.component';
     AlertModule
   ],
   providers: [
-    ChessService, 
+    GameService,
+    ChessService,
     AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],

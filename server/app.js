@@ -42,6 +42,11 @@ let socket = io => {
   io.on('connection', socket => {
     console.log('A user is connected');
 
+    socket.on('make-move', move => {
+      console.log(`Move made: ${ move }`);
+      io.emit('move-piece', move);
+    });
+
     socket.on('add-message', msg => {
       console.log(`New message: ${ msg }`);
       io.emit('message', msg);
