@@ -47,6 +47,11 @@ let socket = io => {
     io.to(socket.id).emit('set-color', currentColor);
     currentColor = currentColor === 'white' ? 'black' : 'white';
 
+    socket.on('send-board', data => {
+      console.log(`New board: ${ JSON.stringify(data) }`);
+      io.emit('board', data);
+    });
+
     socket.on('make-move', move => {
       console.log(`Move made: ${ move }`);
       io.emit('move-piece', move);

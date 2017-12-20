@@ -17,15 +17,19 @@ export class ChessService {
 
     constructor(private gameService: GameService){
         this.board = new Board();
-      this.connection = this.gameService.getMoves().subscribe(data => {
-        console.log(data);
-        this.board.movePiece(data[0], data[1]);
-      });
+      // this.connection = this.gameService.getMoves().subscribe(data => {
+      //   console.log(data);
+      //   this.board.movePiece(data[0], data[1]);
+      // });
     }
 
     getBoard(){
         return this.board.getBoard();
     }
+
+  setBoard(board: Array<any>) {
+    this.board.setBoard(board);
+  }
 
     generatePieces() {
         this.board.generatePieces();
@@ -44,8 +48,8 @@ export class ChessService {
     }
 
     movePiece(from: number, to: number){
-        this.gameService.makeMove([from, to]);
-        // this.board.movePiece(from, to);
+        // this.gameService.makeMove([from, to]);
+        this.board.movePiece(from, to);
     }
 
     getPieceColor(pos: number): Color{
@@ -53,13 +57,14 @@ export class ChessService {
     }
 
     getPlayerColor(): Color{
-        setTimeout(() => {
-            if(this.gameService.color.charAt(0).toLowerCase() == 'w'){
-                return Color.White;
-            }else{
-                return Color.Black;
-            }
-        }, 0);
+        // setTimeout(() => {
+            // if(this.gameService.color.charAt(0).toLowerCase() == 'w'){
+            //     return Color.White;
+            // }else{
+            //     return Color.Black;
+            // }
+        // }, 0);
+      return Color.White;
     }
     
     toArray(board: Array<any>): Array<number>{

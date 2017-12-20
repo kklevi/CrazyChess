@@ -1,4 +1,5 @@
 import { Component, style } from "@angular/core";
+import { GameService } from './_services/game.service';
 import { ChessService } from "./chess.service";
 import { Board } from "./Game/Board";
 import { Piece } from "./Game/Piece";
@@ -11,7 +12,9 @@ import { Color } from "./Game/color";
     styleUrls: ['chess.css']
 })
 export class ChessComponent implements OnInit{
-    constructor(private chessService: ChessService) {}
+    constructor(
+      private chessService: ChessService,
+      private gameService: GameService ) {}
 
     board: Array<any>;
     possibleMovement: Array<number>;
@@ -25,8 +28,19 @@ export class ChessComponent implements OnInit{
         this.board = this.chessService.getBoard();
         this.possibleMovement = new Array();
         this.turn = Color.White;
-        this.playerColor = this.chessService.getPlayerColor();
-        console.log(this.playerColor);
+        // this.playerColor = this.chessService.getPlayerColor();
+        this.playerColor = this.gameService.color === 'white' ? Color.White : Color.Black; 
+        console.log('MY COLOR: ', this.playerColor);
+
+      this.gameService.getBoard().subscribe(data => {
+        console.log('New BOARD:', data);
+        let crazyBoard = this.chessService.toCrazyArray(data.board);
+        console.log('Crazy board:', crazyBoard);
+        this.chessService.setBoard(crazyBoard);
+        this.turn = data.turn;
+      });
+        let b = this.chessService.toArray(this.board);
+        this.gameService.sendBoard({board: b, turn: this.turn});
     }
     
     isWhiteSquare(i: number){
@@ -43,7 +57,7 @@ export class ChessComponent implements OnInit{
     }
 
     selectPiece(i: number): void{
-        if(this.playerColor != this.chessService.getPieceColor(i)) return;
+        // if(this.playerColor != this.chessService.getPieceColor(i)) return;
         if((!this.chessService.hasPieceAt(i) || this.chessService.getPieceColor(i) != this.turn)){
             return;
         }
@@ -63,7 +77,9 @@ export class ChessComponent implements OnInit{
         this.chessService.movePiece(this.selectedPos, i);
         this.possibleMovement = new Array();
         (this.turn == Color.White) ? this.turn = Color.Black : this.turn = Color.White;
-    
+      
+        let b = this.chessService.toArray(this.chessService.getBoard());
+        this.gameService.sendBoard({board: b, turn: this.turn});
     }
 
 }

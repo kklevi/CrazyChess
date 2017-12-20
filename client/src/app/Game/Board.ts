@@ -25,6 +25,10 @@ export class Board {
     getBoard(): Array<any>{
         return this.board;
     }
+  
+  setBoard( board : Array<any>) {
+    this.board = board;
+  }
 
     getPos(piece: Piece): number{
         return this.board.indexOf(piece);

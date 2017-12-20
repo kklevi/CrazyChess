@@ -26,6 +26,10 @@ export class GameService {
     this.socket.emit('make-move', move);
   }
 
+  sendBoard(board: any) : void {
+    this.socket.emit('send-board', board);
+  }
+
   getMessages () : Observable<string> {
     let observable = new Observable<string>(observer => {
       this.socket.on('message', data => {
@@ -45,5 +49,15 @@ export class GameService {
 
     return observable;
   }
+
+  getBoard () : Observable<any> {
+    return new Observable<any> (observer => {
+      this.socket.on('board', board => {
+        console.log('New board recieved:', board);
+        observer.next(board);
+      });
+    });
+  }
+
 }
 
