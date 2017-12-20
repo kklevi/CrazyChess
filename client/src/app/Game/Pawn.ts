@@ -20,6 +20,9 @@ export class Pawn extends Piece{
         let pos = this.board.getPos(this);
 
         if(this.color == Color.White){
+            if(pos > 15 && !this.board.hasPieceAt(pos-16) && !this.moved){
+                possitions.push(pos-16);
+            }
             if(pos > 7 && !this.board.hasPieceAt(pos-8) && this.board.getColorAt(pos-8) != Color.White){
                 possitions.push(pos-8);
             }
@@ -30,6 +33,9 @@ export class Pawn extends Piece{
                 possitions.push(pos-7);
             }
         }else{
+            if(pos < 49 && !this.board.hasPieceAt(pos+16) && !this.moved){
+                possitions.push(pos+16);
+            }
             if(pos < 57 && !this.board.hasPieceAt(pos+8) && this.board.getColorAt(pos+8) != Color.Black){
                 possitions.push(pos+8);
             }

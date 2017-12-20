@@ -6,6 +6,7 @@ export abstract class Piece {
     color: Color;
     htmlCode: String;
     points: number;
+    moved: boolean;
     
     constructor(board: Board, color: Color){
         this.board = board;
@@ -13,6 +14,11 @@ export abstract class Piece {
     }
 
     abstract getMovement(): Array<number>;
+    
+    setMoved(isMoved: boolean) {
+        this.moved = isMoved;
+    }
+
     getHtmlCode(): String{
         return this.htmlCode;
     }

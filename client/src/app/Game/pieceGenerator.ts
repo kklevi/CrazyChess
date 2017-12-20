@@ -14,13 +14,22 @@ export class PieceGenerator{
         let whitePieces = new Array<Piece>();
         let blackPieces = new Array<Piece>();
         
-        this.createPieces(whitePieces, 20, board, Color.White);
-        this.createPieces(blackPieces, 20, board, Color.Black);
+        this.createPieces(whitePieces, 40, board, Color.White);
+        this.createPieces(blackPieces, 40, board, Color.Black);
 
-        let whiteQueens = whitePieces.filter((p) => p.points != 1 && p.color == Color.White);
-        let blackQueens = blackPieces.filter((p) => p.points != 1 && p.color == Color.Black);
+        let whiteNonPawns = whitePieces.filter((p) => p.points != 1 && p.color == Color.White);
+        let blackNonPawns = blackPieces.filter((p) => p.points != 1 && p.color == Color.Black);
 
+        whiteNonPawns = whiteNonPawns.sort((p1, p2) => this.sortPieces(p1, p2));
+        blackNonPawns = blackNonPawns.sort((p1, p2) => this.sortPieces(p1, p2));
 
+        let whitePawns = whitePieces.filter((p) => p.points == 1 && p.color == Color.White);
+        let blackPawns = blackPieces.filter((p) => p.points == 1 && p.color == Color.Black);
+
+        this.placePieces(board, Color.White, whiteNonPawns, 0);
+        this.placePieces(board, Color.Black, blackNonPawns, 0);
+        this.placePieces(board, Color.White, whitePawns, 1);
+        this.placePieces(board, Color.Black, blackPawns, 1);
         
     }
 
@@ -36,34 +45,23 @@ export class PieceGenerator{
                 break;
             }
             
-            let randomNum = Math.round(Math.random()*4);
-            console.log(randomNum);
+            let randomNum = Math.round(Math.random()*15);
 
-            switch(randomNum){
-                case randomNum = 0:
-                    Pieces.push(new Pawn(board, color));
-                    currentPoints++;
-                    break;
-                
-                case randomNum = 1:
-                    Pieces.push(new Bishop(board, color));
-                    currentPoints += 3;
-                    break;
-
-                case randomNum = 2:
-                    Pieces.push(new Knight(board, color));
-                    currentPoints += 3;
-                    break;
-                
-                case randomNum = 3:
-                    Pieces.push(new Rook(board, color));
-                    currentPoints += 5;
-                    break;
-
-                case randomNum = 4:
-                    Pieces.push(new Queen(board, color));
-                    currentPoints += 9;
-                    break;
+            if(randomNum < 6){
+                Pieces.push(new Pawn(board, color));
+                currentPoints++;
+            }else if(randomNum < 9){
+                Pieces.push(new Bishop(board, color));
+                currentPoints += 3;
+            }else if(randomNum < 12){
+                Pieces.push(new Knight(board, color));
+                currentPoints += 3;
+            }else if(randomNum < 14){
+                Pieces.push(new Rook(board, color));
+                currentPoints += 4;
+            }else if(randomNum < 15){
+                Pieces.push(new Queen(board, color));
+                currentPoints += 8;
             }
 
         }
@@ -81,12 +79,19 @@ export class PieceGenerator{
         let row = startingRow;
 
         while(pieces.length > 0){
+
             if((left || columnR < 1) && columnL < 9){
-                board.getBoard()[(row*8)+columnL-1] = pieces.pop();
+                if(!board.hasPieceAt((row*8)+columnL-1)){
+                    board.getBoard()[(row*8)+columnL-1] = pieces.pop();
+                }
+                
                 columnL++;
                 left = false;
             }else{
-                board.getBoard()[(row*8)+columnR-1] = pieces.pop();
+                if(!board.hasPieceAt((row*8)+columnR-1)){
+                    board.getBoard()[(row*8)+columnR-1] = pieces.pop();
+                }
+                
                 columnR--;
                 left = true;
             }
@@ -101,11 +106,11 @@ export class PieceGenerator{
     }
 
     private sortPieces(piece1: Piece, piece2: Piece): number{
-        if(piece1 > piece2){
-            return -1;
-        }
-        if(piece1 < piece2){
+        if(piece1.points > piece2.points){
             return 1;
+        }
+        if(piece1.points < piece2.points){
+            return -1;
         }
         return 0;
     }

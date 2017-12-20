@@ -33,6 +33,7 @@ export class Board {
     movePiece(from: number, to:number){
         this.board[to] = this.board[from];
         this.board[from] = 0;
+        this.board[to].setMoved(true);
     }
 
     hasPieceAt(pos: number): boolean{
