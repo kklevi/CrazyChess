@@ -35,7 +35,7 @@ function authenticate ( username, password ) {
         if(!isMatch) {
           reject(errMessage);
         } else {
-          resolve({ message: 'OK', token: generateToken(user) });
+          resolve({ message: 'OK', token: generateToken(user), user: user });
         }
       })
     }));
