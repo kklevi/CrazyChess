@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #f4f4f4;
+}
+
+a {
+  cursor: pointer;
+}
+
+.help-block {
+  font-size: 12px;
+}
+
 .chessboard {
     width: 640px;
     height: 640px;
