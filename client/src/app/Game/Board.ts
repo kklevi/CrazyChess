@@ -22,7 +22,7 @@ export class Board {
         this.pieceGenerator.generatePieces(this);
     }
 
-    getBoard(){
+    getBoard(): Array<any>{
         return this.board;
     }
 

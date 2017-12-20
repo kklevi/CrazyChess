@@ -26,6 +26,7 @@ export class ChessComponent implements OnInit{
         this.possibleMovement = new Array();
         this.turn = Color.White;
         this.playerColor = this.chessService.getPlayerColor();
+        console.log(this.playerColor);
     }
     
     isWhiteSquare(i: number){
@@ -58,11 +59,11 @@ export class ChessComponent implements OnInit{
     }
 
     moveSelectedPieceTo(i: number): void{
-      setTimeout(() => {
+      
         this.chessService.movePiece(this.selectedPos, i);
         this.possibleMovement = new Array();
         (this.turn == Color.White) ? this.turn = Color.Black : this.turn = Color.White;
-      }, 0);
+    
     }
 
 }
