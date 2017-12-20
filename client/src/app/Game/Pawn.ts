@@ -33,7 +33,7 @@ export class Pawn extends Piece{
                 possitions.push(pos-7);
             }
         }else{
-            if(pos < 49 && !this.board.hasPieceAt(pos+16)&& this.board.hasPieceAt(pos+8) && !this.moved){
+            if(pos < 49 && !this.board.hasPieceAt(pos+16)&& !this.board.hasPieceAt(pos+8) && !this.moved){
                 possitions.push(pos+16);
             }
             if(pos < 57 && !this.board.hasPieceAt(pos+8) && this.board.getColorAt(pos+8) != Color.Black){
