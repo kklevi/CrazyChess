@@ -46,5 +46,13 @@ export class ChessService {
     getPieceColor(pos: number): Color{
         return this.board.getPiece(pos).color;
     }
+
+    getPlayerColor(): Color{
+        if(this.gameService.color == 'white'){
+            return Color.White;
+        }else{
+            return Color.Black;
+        }
+    }
     
 }

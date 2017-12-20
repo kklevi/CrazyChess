@@ -17,6 +17,7 @@ export class ChessComponent implements OnInit{
     possibleMovement: Array<number>;
     selectedPos: number;
     turn: Color;
+    playerColor: Color;
 
     ngOnInit(){
         console.log('hi');
@@ -24,6 +25,7 @@ export class ChessComponent implements OnInit{
         this.board = this.chessService.getBoard();
         this.possibleMovement = new Array();
         this.turn = Color.White;
+        this.playerColor = this.chessService.getPlayerColor();
     }
     
     isWhiteSquare(i: number){
@@ -40,7 +42,8 @@ export class ChessComponent implements OnInit{
     }
 
     selectPiece(i: number): void{
-        if(!this.chessService.hasPieceAt(i) || this.chessService.getPieceColor(i) != this.turn){
+        if(this.playerColor != this.chessService.getPieceColor(i)) return;
+        if((!this.chessService.hasPieceAt(i) || this.chessService.getPieceColor(i) != this.turn)){
             return;
         }
         this.selectedPos = i;
