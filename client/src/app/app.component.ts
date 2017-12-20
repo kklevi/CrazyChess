@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
       <h1>
         Welcome to {{title}}!
       </h1>
-    <chess></chess>
+    </div>
+   <router-outlet></router-outlet>   
   `,
   styles: []
 })
