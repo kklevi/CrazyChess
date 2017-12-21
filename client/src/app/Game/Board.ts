@@ -10,11 +10,7 @@ export class Board {
 
     constructor() {
         this.pieceGenerator = new PieceGenerator();
-
-        this.board = new Array(64);
-        for(let i = 0; i < 64; i++){
-            this.board[i] = 0;
-        }
+        this.resetBoard();
 
     }
 
@@ -87,4 +83,10 @@ export class Board {
         return board;
     }
 
+  resetBoard () {
+        this.board = new Array(64);
+        for(let i = 0; i < 64; i++){
+            this.board[i] = 0;
+        }
+  }
 }

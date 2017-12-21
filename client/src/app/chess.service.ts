@@ -67,6 +67,9 @@ export class ChessService {
       return Color.White;
     }
     
+  resetBoard () {
+    this.board.resetBoard();
+  }
     toArray(board: Array<any>): Array<number>{
         return board.map(e => {
             return (e === 0) ? 0 :

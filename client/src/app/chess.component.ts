@@ -26,6 +26,7 @@ export class ChessComponent implements OnInit{
 
     ngOnInit(){
         console.log('hi');
+        this.chessService.resetBoard();
         this.chessService.generatePieces();
         this.board = this.chessService.getBoard();
         this.possibleMovement = new Array();
