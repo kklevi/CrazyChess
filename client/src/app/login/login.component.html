@@ -5,8 +5,9 @@
     <label for="username">Username</label>
     <input type="text" class="form-control" 
       [ngClass]="{ 'is-invalid': f.submitted && !username.valid }"
-      name="username" [(ngModel)]="model.username" #username="ngModel" required />
-    <div *ngIf="f.submitted && !username.valid" class="invalid-feedback">Username is required</div>
+      name="username" [(ngModel)]="model.username" #username="ngModel" required notAllNumeric />
+    <div *ngIf="f.submitted &&  username.errors && username.errors.required" class="invalid-feedback">Username is required</div>
+    <div *ngIf="f.submitted &&  username.errors && username.errors.notAllNumeric" class="invalid-feedback">Username cannot be all numbers</div>
   </div>
   <div class="form-group"> 
     <label for="password">Password</label>

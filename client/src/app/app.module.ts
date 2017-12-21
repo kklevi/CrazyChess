@@ -23,6 +23,7 @@ import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { QuotePipe } from './_pipes/quote.pipe';
 
 import { LoadingDirective } from './_directives/loading.directive';
+import { NotAllNumericValidatorDirective } from './_directives/not-all-numeric.directive';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LoadingDirective } from './_directives/loading.directive';
     ChatBoxComponent,
 
     QuotePipe,
-    LoadingDirective
+    LoadingDirective,
+    NotAllNumericValidatorDirective
   ],
   imports: [
     BrowserModule,
