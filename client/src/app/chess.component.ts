@@ -40,6 +40,8 @@ export class ChessComponent implements OnInit{
 
       let b = this.chessService.toArray(this.board);
       this.gameService.initBoard(b);
+
+      this.alertService.alert(`Your are playing ${ this.playerColor == 0 ? 'White' : 'Black'  }`, 'info')
     }
     
     isWhiteSquare(i: number){
@@ -56,7 +58,7 @@ export class ChessComponent implements OnInit{
     }
 
     selectPiece(i: number): void{
-        // if(this.playerColor != this.chessService.getPieceColor(i)) return;
+        if(this.playerColor != this.chessService.getPieceColor(i)) return;
         if((!this.chessService.hasPieceAt(i) || this.chessService.getPieceColor(i) != this.turn)){
             return;
         }
