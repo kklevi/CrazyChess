@@ -1,6 +1,4 @@
-<div *ngIf="!ready">
-  Waiting for other player to join...
-</div>
+<div *ngIf="!ready" class="loader"></div>
 <div *ngIf="ready" class="playground">
   <div class="board-area">
     <chess [playerColor]="token.color"></chess>
