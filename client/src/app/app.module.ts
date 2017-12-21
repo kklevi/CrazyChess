@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { PlaygroundComponent } from './playground/playground.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 
+import { QuotePipe } from './_pipes/quote.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { ChatBoxComponent } from './chat-box/chat-box.component';
     HomeComponent,
     LoginComponent,
     PlaygroundComponent,
-    ChatBoxComponent
+    ChatBoxComponent,
+
+    QuotePipe
   ],
   imports: [
     BrowserModule,

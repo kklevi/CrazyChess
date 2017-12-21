@@ -55,3 +55,7 @@ ul {
 .card-body {
   padding: 10px;
 }
+
+.alert {
+  margin-top: 1rem;
+}
