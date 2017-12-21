@@ -39,9 +39,9 @@ import { ChatBoxComponent } from './chat-box/chat-box.component';
     AlertModule
   ],
   providers: [
+    AuthenticationService,
     GameService,
     ChessService,
-    AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

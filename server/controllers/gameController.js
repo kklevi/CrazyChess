@@ -70,9 +70,9 @@ function configureGameController ( io ) {
       io.emit('move-piece', move);
     });
 
-    socket.on('add-message', msg => {
+    socket.on('new-message', msg => {
       console.log(`New message: ${ msg }`);
-      io.emit('message', msg);
+      io.to(msg.gameSessionId).emit('message', msg);
     });
 
     socket.on('disconnect', () => {

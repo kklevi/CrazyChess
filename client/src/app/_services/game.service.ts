@@ -4,18 +4,20 @@ import * as io from 'socket.io-client';
 
 import { API } from '../_config/api';
 
+import { AuthenticationService } from './authentication.service';
+
 @Injectable()
 export class GameService {
 
   private socket: io.Socket;
   token: any;
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService) {
     console.log('Connect to socket');
     this.socket = io(API.base());
   }
 
-  joinGame(username: string) : Observable<any> {
+  joinGame(username : string) : Observable<any> {
     return new Observable<any>(observer => {
       this.socket.on('game-ready', token => {
         observer.next(token);
@@ -24,22 +26,27 @@ export class GameService {
     });
   }
 
-  initBoard(board: any, gameSessionId?: string) : void {
+  initBoard(board : any, gameSessionId? : string) : void {
     this.socket.emit('init-board', { 
       gameSessionId: gameSessionId || this.token.gameSessionId,
       board: board
     });
   }
 
-  sendMessage(msg: string) : void {
-    this.socket.emit('add-message', msg);
+  sendMessage(msg : string, from? : string, gameSessionId? : string) : void {
+    this.socket.emit('new-message', {
+      type: 'message',
+      text: msg,
+      from: from || this.authenticationService.getCurrentUser().username,
+      gameSessionId: gameSessionId || this.token.gameSessionId
+    });
   }
 
-  makeMove(move: number[]) : void {
+  makeMove(move : number[]) : void {
     this.socket.emit('make-move', move);
   }
 
-  sendBoard(board: any, turn: any, gameSessionId? : string) : void {
+  sendBoard(board : any, turn: any, gameSessionId? : string) : void {
     this.socket.emit('send-board', {
       board: board,
       turn: turn,
