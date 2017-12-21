@@ -22,6 +22,8 @@ import { ChatBoxComponent } from './chat-box/chat-box.component';
 
 import { QuotePipe } from './_pipes/quote.pipe';
 
+import { LoadingDirective } from './_directives/loading.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { QuotePipe } from './_pipes/quote.pipe';
     PlaygroundComponent,
     ChatBoxComponent,
 
-    QuotePipe
+    QuotePipe,
+    LoadingDirective
   ],
   imports: [
     BrowserModule,
