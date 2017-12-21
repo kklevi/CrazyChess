@@ -12,6 +12,8 @@ dontenv.load();
 require('./config/database');
 const passport = require('./config/passport-config');
 
+const gameController = require('./controllers/gameController');
+
 let index = require('./routes/index');
 let users = require('./routes/users');
 let auth = require('./routes/auth');
@@ -39,33 +41,34 @@ app.use('/api/auth', auth);
 app.use('/users', users);
 
 let socket = io => {
-  let currentColor = 'white';
-
-  io.on('connection', socket => {
-    console.log('A user is connected');
-    
-    io.to(socket.id).emit('set-color', currentColor);
-    currentColor = currentColor === 'white' ? 'black' : 'white';
-
-    socket.on('send-board', data => {
-      console.log(`New board: ${ JSON.stringify(data) }`);
-      io.emit('board', data);
-    });
-
-    socket.on('make-move', move => {
-      console.log(`Move made: ${ move }`);
-      io.emit('move-piece', move);
-    });
-
-    socket.on('add-message', msg => {
-      console.log(`New message: ${ msg }`);
-      io.emit('message', msg);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('User disconnected.');
-    });
-  });
+  gameController(io);
+  // let currentColor = 'white';
+  //
+  // io.on('connection', socket => {
+  //   console.log('A user is connected');
+  //   
+  //   io.to(socket.id).emit('set-color', currentColor);
+  //   currentColor = currentColor === 'white' ? 'black' : 'white';
+  //
+  //   socket.on('send-board', data => {
+  //     console.log(`New board: ${ JSON.stringify(data) }`);
+  //     io.emit('board', data);
+  //   });
+  //
+  //   socket.on('make-move', move => {
+  //     console.log(`Move made: ${ move }`);
+  //     io.emit('move-piece', move);
+  //   });
+  //
+  //   socket.on('add-message', msg => {
+  //     console.log(`New message: ${ msg }`);
+  //     io.emit('message', msg);
+  //   });
+  //
+  //   socket.on('disconnect', () => {
+  //     console.log('User disconnected.');
+  //   });
+  // });
 };
 
 // catch 404 and forward to error handler

@@ -1,0 +1,46 @@
+<div class="content-wrapper">
+  <div class="chat-area">
+    <ul class="messages">
+      <li *ngFor="let msg of messages">{{ msg }}</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Sample message</li>
+      <li>Lat Message Sample message</li>
+    </ul>
+    <input class="input-message"
+      [(ngModel)]="message"
+      (keyup.enter)="sendMessage()"
+      placeholder="Type message here..." >
+  </div>
+</div>
+

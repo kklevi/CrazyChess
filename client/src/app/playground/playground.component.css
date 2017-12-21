@@ -1,0 +1,7 @@
+.playground {
+  display: flex;
+}
+
+.chat-area {
+  flex: 1;
+}

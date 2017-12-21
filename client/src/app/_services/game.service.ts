@@ -8,15 +8,26 @@ import { API } from '../_config/api';
 export class GameService {
 
   private socket: io.Socket;
-  color: string;
+  token: any;
 
   constructor() {
     console.log('Connect to socket');
     this.socket = io(API.base());
+  }
 
-    this.socket.on('set-color', data => {
-      this.color = data;
-      console.log('Setting color', data);
+  joinGame(username: string) : Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on('game-ready', token => {
+        observer.next(token);
+      });
+      this.socket.emit('join-game', username);
+    });
+  }
+
+  initBoard(board: any, gameSessionId?: string) : void {
+    this.socket.emit('init-board', { 
+      gameSessionId: gameSessionId || this.token.gameSessionId,
+      board: board
     });
   }
 
@@ -28,8 +39,12 @@ export class GameService {
     this.socket.emit('make-move', move);
   }
 
-  sendBoard(board: any) : void {
-    this.socket.emit('send-board', board);
+  sendBoard(board: any, turn: any, gameSessionId? : string) : void {
+    this.socket.emit('send-board', {
+      board: board,
+      turn: turn,
+      gameSessionId: gameSessionId || this.token.gameSessionId
+    });
   }
 
   getMessages () : Observable<string> {
@@ -55,7 +70,6 @@ export class GameService {
   getBoard () : Observable<any> {
     return new Observable<any> (observer => {
       this.socket.on('board', board => {
-        console.log('New board recieved:', board);
         observer.next(board);
       });
     });

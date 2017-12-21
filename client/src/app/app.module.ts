@@ -18,6 +18,7 @@ import { ChessComponent } from './chess.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PlaygroundComponent } from './playground/playground.component';
+import { ChatBoxComponent } from './chat-box/chat-box.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PlaygroundComponent } from './playground/playground.component';
     ChessComponent,
     HomeComponent,
     LoginComponent,
-    PlaygroundComponent
+    PlaygroundComponent,
+    ChatBoxComponent
   ],
   imports: [
     BrowserModule,

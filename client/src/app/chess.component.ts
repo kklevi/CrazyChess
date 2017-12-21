@@ -1,4 +1,4 @@
-import { Component, style } from "@angular/core";
+import { Component, style, Input } from "@angular/core";
 import { GameService } from './_services/game.service';
 import { ChessService } from "./chess.service";
 import { AlertService } from './_services/alert.service';
@@ -22,7 +22,7 @@ export class ChessComponent implements OnInit{
     possibleMovement: Array<number>;
     selectedPos: number;
     turn: Color;
-    playerColor: Color;
+    @Input() playerColor: Color;
 
     ngOnInit(){
         console.log('hi');
@@ -30,20 +30,17 @@ export class ChessComponent implements OnInit{
         this.board = this.chessService.getBoard();
         this.possibleMovement = new Array();
         this.turn = Color.White;
-        // this.playerColor = this.chessService.getPlayerColor();
-        this.playerColor = this.gameService.color === 'white' ? Color.White : Color.Black; 
         console.log('MY COLOR: ', this.playerColor);
 
       this.gameService.getBoard().subscribe(data => {
-        console.log('New BOARD:', data);
         let crazyBoard = this.chessService.toCrazyArray(data.board);
-        console.log('Crazy board:', crazyBoard);
         this.chessService.setBoard(crazyBoard);
         this.turn = data.turn;
         this.alertService.alert(`${ this.turn === 0 ? 'White' : 'Black'}'s turn'`, 'info');
       });
-        let b = this.chessService.toArray(this.board);
-        this.gameService.sendBoard({board: b, turn: this.turn});
+
+      let b = this.chessService.toArray(this.board);
+      this.gameService.initBoard(b);
     }
     
     isWhiteSquare(i: number){
@@ -82,7 +79,7 @@ export class ChessComponent implements OnInit{
         (this.turn == Color.White) ? this.turn = Color.Black : this.turn = Color.White;
       
         let b = this.chessService.toArray(this.chessService.getBoard());
-        this.gameService.sendBoard({board: b, turn: this.turn});
+        this.gameService.sendBoard(b, this.turn);
     }
 
 }

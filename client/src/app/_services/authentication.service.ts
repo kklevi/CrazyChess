@@ -24,4 +24,9 @@ export class AuthenticationService {
   logout () : void {
     localStorage.removeItem('currentUser');
   }
+
+  getCurrentUser() : any {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return currentUser && currentUser.user;
+  }
 }
