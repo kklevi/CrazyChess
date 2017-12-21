@@ -32,6 +32,10 @@ ul {
   padding: 10px 20px 10px 20px;
 }
 
+.message-area {
+  margin-bottom: 5px;
+}
+
 .input-message {
   border: 3px solid #333;
   bottom: 0;
@@ -43,4 +47,11 @@ ul {
   right: 0;
   width: 100%;
   border-radius: 4px;
+}
+
+.card-title {
+  margin-bottom: 2px;
+}
+.card-body {
+  padding: 10px;
 }

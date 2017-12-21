@@ -47,10 +47,19 @@ function configureGameController ( io ) {
     socket.on('init-board', data => {
       let initBoard = pendingGameSessions.get(data.gameSessionId);
       if (initBoard) {
+        
         io.to(data.gameSessionId).emit('board', {
           board: initBoard,
           turn: 0
         });
+
+        io.to(data.gameSessionId).emit('message', {
+          from: 'system',
+          text: 'Game start. White\'s turn.',
+          type: 'notification',
+          gameSessionId: data.gameSessionId
+        });
+
         pendingGameSessions.delete(data.gameSessionId);
       } else {
         pendingGameSessions.set(data.gameSessionId, data.board);
@@ -63,6 +72,14 @@ function configureGameController ( io ) {
     socket.on('send-board', data => {
       console.log(`New board: ${ JSON.stringify(data) }`);
       io.to(data.gameSessionId).emit('board', data);
+
+        io.to(data.gameSessionId).emit('message', {
+          from: 'system',
+          text: `${ data.turn ? 'Black' : 'White' }'s turn.`,
+          type: 'notification',
+          gameSessionId: data.gameSessionId
+        });
+
     });
 
     socket.on('make-move', move => {
@@ -72,7 +89,7 @@ function configureGameController ( io ) {
 
     socket.on('new-message', msg => {
       console.log(`New message: ${ msg }`);
-      io.to(msg.gameSessionId).emit('message', msg);
+      io.to(msg.gameSessionId).emit('message', {from: socket.username, ...msg});
     });
 
     socket.on('disconnect', () => {

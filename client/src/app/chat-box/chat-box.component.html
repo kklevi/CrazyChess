@@ -1,7 +1,17 @@
 <div class="content-wrapper">
   <div class="chat-area">
     <ul class="messages">
-      <li *ngFor="let msg of messages">{{ msg.text }}</li>
+      <li *ngFor="let msg of messages" class="message-area">
+        <div *ngIf="msg.type === 'chat'" class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ msg.from }}</h5>
+            <p class="card-text text-right">{{ msg.text }}</p>
+          </div>
+        </div>
+        <div *ngIf="msg.type === 'notification'" class="alert alert-secondary text-center" role="alert">
+					{{ msg.text }}
+				</div>
+      </li>
     </ul>
     <input class="input-message"
       [(ngModel)]="message"

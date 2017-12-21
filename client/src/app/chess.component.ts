@@ -36,7 +36,6 @@ export class ChessComponent implements OnInit{
         let crazyBoard = this.chessService.toCrazyArray(data.board);
         this.chessService.setBoard(crazyBoard);
         this.turn = data.turn;
-        this.alertService.alert(`${ this.turn === 0 ? 'White' : 'Black'}'s turn'`, 'info');
       });
 
       let b = this.chessService.toArray(this.board);

@@ -4,15 +4,13 @@ import * as io from 'socket.io-client';
 
 import { API } from '../_config/api';
 
-import { AuthenticationService } from './authentication.service';
-
 @Injectable()
 export class GameService {
 
   private socket: io.Socket;
   token: any;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor() {
     console.log('Connect to socket');
     this.socket = io(API.base());
   }
@@ -35,9 +33,8 @@ export class GameService {
 
   sendMessage(msg : string, from? : string, gameSessionId? : string) : void {
     this.socket.emit('new-message', {
-      type: 'message',
+      type: 'chat',
       text: msg,
-      from: from || this.authenticationService.getCurrentUser().username,
       gameSessionId: gameSessionId || this.token.gameSessionId
     });
   }
