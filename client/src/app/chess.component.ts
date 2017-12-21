@@ -1,6 +1,7 @@
 import { Component, style } from "@angular/core";
 import { GameService } from './_services/game.service';
 import { ChessService } from "./chess.service";
+import { AlertService } from './_services/alert.service';
 import { Board } from "./Game/Board";
 import { Piece } from "./Game/Piece";
 import { OnInit } from "@angular/core";
@@ -14,7 +15,8 @@ import { Color } from "./Game/color";
 export class ChessComponent implements OnInit{
     constructor(
       private chessService: ChessService,
-      private gameService: GameService ) {}
+      private gameService: GameService,
+      private alertService: AlertService) {}
 
     board: Array<any>;
     possibleMovement: Array<number>;
@@ -38,6 +40,7 @@ export class ChessComponent implements OnInit{
         console.log('Crazy board:', crazyBoard);
         this.chessService.setBoard(crazyBoard);
         this.turn = data.turn;
+        this.alertService.alert(`${ this.turn === 0 ? 'White' : 'Black'}'s turn'`, 'info');
       });
         let b = this.chessService.toArray(this.board);
         this.gameService.sendBoard({board: b, turn: this.turn});

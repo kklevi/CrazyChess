@@ -17,6 +17,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { ChessComponent } from './chess.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { PlaygroundComponent } from './playground/playground.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     ChessComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    PlaygroundComponent
   ],
   imports: [
     BrowserModule,

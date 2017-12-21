@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 
+import { API } from '../_config/api';
+
 @Injectable()
 export class GameService {
 
@@ -10,7 +12,7 @@ export class GameService {
 
   constructor() {
     console.log('Connect to socket');
-    this.socket = io('http://localhost:3000');
+    this.socket = io(API.base());
 
     this.socket.on('set-color', data => {
       this.color = data;
