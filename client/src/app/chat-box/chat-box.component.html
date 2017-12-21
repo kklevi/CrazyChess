@@ -1,6 +1,6 @@
 <div class="content-wrapper">
   <div class="chat-area">
-    <ul class="messages">
+    <ul class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       <li *ngFor="let msg of messages" class="message-area">
         <div *ngIf="msg.type === 'chat'" class="card">
           <div class="card-body">
